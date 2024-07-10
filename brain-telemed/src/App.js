@@ -3,12 +3,20 @@ import React, { useState, useEffect } from "react";
 //import { Router, navigate } from "@reach/router";
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import useLocalStorage from "react-use-localstorage";
-import { Neurosity } from "@neurosity/sdk";
 
+import { createClient } from "@supabase/supabase-js";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+
+import { Neurosity } from "@neurosity/sdk";
 import { Login } from "./pages/Login";
 import { Logout } from "./pages/Logout";
-
 import { Calm } from "./pages/Calm";
+
+const supabase = createClient(
+  "https://xyakcnqxoxwxnitreuno.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5YWtjbnF4b3h3eG5pdHJldW5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1NTczMTYsImV4cCI6MjAzNjEzMzMxNn0.w1Mr-GYuS0xJiPSm7gQXuTOpjCde3N8ru8n-q0NnzO0"
+);
 
 export default function App() {
   const [neurosity, setNeurosity] = useState(null);
@@ -16,6 +24,37 @@ export default function App() {
   const [deviceId, setDeviceId] = useLocalStorage("deviceId");
   const [loading, setLoading] = useState(true);
 
+  // SUPABASE AUTH
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (!session) {
+    return (
+      <Auth
+        supabaseClient={supabase}
+        appearance={{ theme: ThemeSupa }}
+        providers={[]}
+      />
+    );
+  } else {
+    return <div>Logged in!</div>;
+  }
+
+  // NEUROSITY AUTH
+  /** 
   useEffect(() => {
     if (deviceId) {
       const neurosity = new Neurosity({ deviceId });
@@ -73,5 +112,5 @@ export default function App() {
       />
       <Calm path="/calm" neurosity={neurosity} user={user} />
     </>
-  );
+  );*/
 }
