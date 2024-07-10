@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
-import { Router, navigate } from "@reach/router";
+//import { Router, navigate } from "@reach/router";
+import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import useLocalStorage from "react-use-localstorage";
 import { Neurosity } from "@neurosity/sdk";
 
@@ -33,7 +34,8 @@ export default function App() {
       if (user) {
         setUser(user);
       } else {
-        navigate("/");
+        //navigate("/");
+        <Link to="/" />;
       }
       setLoading(false);
     });
@@ -45,12 +47,14 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      navigate("/calm");
+      //navigate("/calm");
+      <Link to="/calm">Calm</Link>;
     }
   }, [user]);
 
   return (
-    <Router>
+    <>
+      Hello world!!
       <Login
         path="/"
         neurosity={neurosity}
@@ -68,6 +72,6 @@ export default function App() {
         }}
       />
       <Calm path="/calm" neurosity={neurosity} user={user} />
-    </Router>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 // src/components/Nav.js
 import React, { useState, useEffect } from "react";
-import { navigate } from "@reach/router";
+//import { navigate } from "@reach/router";
+import { Link } from "react-router-dom";
 
 import { Status } from "./Status";
 
@@ -20,9 +21,7 @@ export function Nav({ neurosity }) {
   return (
     <nav className="card">
       <Status neurosity={neurosity} info={info} />
-      <button onClick={() => navigate("/logout")} className="card-btn">
-        Logout
-      </button>
+      <Link to="/logout">Logout</Link>
     </nav>
   );
 }
