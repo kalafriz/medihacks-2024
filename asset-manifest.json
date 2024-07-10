@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/medihacks-2024/static/css/main.f776fa63.css",
+    "main.js": "/medihacks-2024/static/js/main.57ef858e.js",
+    "static/js/453.cb2a666d.chunk.js": "/medihacks-2024/static/js/453.cb2a666d.chunk.js",
+    "index.html": "/medihacks-2024/index.html",
+    "main.f776fa63.css.map": "/medihacks-2024/static/css/main.f776fa63.css.map",
+    "main.57ef858e.js.map": "/medihacks-2024/static/js/main.57ef858e.js.map",
+    "453.cb2a666d.chunk.js.map": "/medihacks-2024/static/js/453.cb2a666d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f776fa63.css",
+    "static/js/main.57ef858e.js"
+  ]
+}
